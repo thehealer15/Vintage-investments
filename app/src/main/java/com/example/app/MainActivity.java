@@ -1,11 +1,14 @@
 package com.example.app;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -16,7 +19,7 @@ import Screens.fragment_profile;
 public class MainActivity extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener{
     private FrameLayout fragment_container;
     private BottomNavigationView bottomNav;
-
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,25 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         }
         return false;
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        inflater = getMenuInflater();
+        getMenuInflater().inflate(R.menu.switch_mode, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.light_mode:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                return true;
 
-
-
+            case R.id.dark_mode:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                return true;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                return true;
+        }
+    }
 }
