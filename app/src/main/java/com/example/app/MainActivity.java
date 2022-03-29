@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import Screens.fragment_profile;
 
@@ -30,7 +32,9 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         loadFragment(new Screens.feed_fragment());
         bottomNav.setOnNavigationItemSelectedListener(this);
 
-    }
+        bottomNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) { } }); }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -82,8 +86,11 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
             case R.id.dark_mode:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 return true;
-            default:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+            case R.id.profile_toolbar:
+                loadFragment(new fragment_profile());return true;
+                default:
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 return true;
         }
     }
