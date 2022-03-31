@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
                 return true;
 
             case R.id.profile_toolbar:
-                loadFragment(new fragment_profile());return true;
+                loadFragment(new fragment_profile());
+                bottomNav.setSelectedItemId(R.id.profile_btn);return true;
                 default:
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 return true;
