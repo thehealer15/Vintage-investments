@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +17,16 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import Screens.authentication.WelcomeActivity;
+import Screens.feed_fragment;
+import Screens.fragment_dashboard;
 import Screens.fragment_profile;
 
 public class MainActivity extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener{
     private FrameLayout fragment_container;
     private BottomNavigationView bottomNav;
     private ActionBar actionBar;
+    public static boolean welcomed = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +36,17 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         bottomNav = findViewById(R.id.bottomNav);
         loadFragment(new Screens.feed_fragment());
         bottomNav.setOnNavigationItemSelectedListener(this);
+        if(welcomed){
+            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
+            welcomed = false;
+        }
 
         bottomNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) { } }); }
+            public void onNavigationItemReselected(@NonNull MenuItem item) { } });
+
+
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -95,4 +107,30 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
                 return true;
         }
     }
+    private void loadFragment(int fragmentNumber){
+        Fragment temp;
+        switch (fragmentNumber){
+            case 1: temp = new feed_fragment(); break;
+            case 2: temp = new fragment_dashboard() ; break;
+            default: temp = new fragment_profile();break;
+        }
+        loadFragment(temp);
+    }
+
 }
+
+
+/**
+ * OnTochClickListner code dump
+ *
+ fragment_container.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
+@Override
+public void onSwipeLeft() {
+loadFragment((CurrentFragment + 1) %3);
+}
+@Override
+public void onSwipeRight(){
+loadFragment((CurrentFragment - 1) % 3);
+}
+});
+ * */
