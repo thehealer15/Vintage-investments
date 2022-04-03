@@ -1,6 +1,7 @@
 package Screens.authentication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.app.MainActivity;
 import com.example.app.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -50,9 +52,23 @@ public class loginFragment extends Fragment {
         go_back_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "going back", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Going Back", Toast.LENGTH_SHORT).show();
             }
         });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login();
+            }
+        });
+
         return parent ;
+    }
+
+    private void login(){
+        MainActivity.welcomed = false;
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        i.putExtra("path" , "MainActivity");
+        startActivity(i);
     }
 }

@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     tools:context="Screens.feed_fragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/filter_feed_btn"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="feed"
-        android:textSize="24sp"
+        android:text="Filter based on tenure of investment"
+        app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

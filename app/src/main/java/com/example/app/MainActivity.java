@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Objects;
+
 import Screens.authentication.WelcomeActivity;
 import Screens.feed_fragment;
 import Screens.fragment_dashboard;
@@ -45,6 +47,13 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) { } });
 
+        Intent authen = getIntent();
+        String path = authen.getStringExtra("path");
+        if(Objects.equals(path, "MainActivity")){
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Authentication successful", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            loadFragment(new feed_fragment());
+        }
 
     }
     @Override

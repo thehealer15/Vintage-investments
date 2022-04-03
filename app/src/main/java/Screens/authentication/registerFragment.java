@@ -50,7 +50,9 @@ public class registerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MainActivity.welcomed = false;
-                startActivity(new Intent(getActivity() , MainActivity.class));
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                i.putExtra("path" , "MainActivity");
+                startActivity(i);
             }
         });
 
