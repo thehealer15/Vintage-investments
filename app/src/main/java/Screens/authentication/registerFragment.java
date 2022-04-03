@@ -21,11 +21,17 @@ import com.google.android.material.textfield.TextInputLayout;
 public class registerFragment extends Fragment {
     View parent;
     Context mContext;
-    EditText name , surname , bankAc , gavali;
+    EditText name , surname , bankAc , pan , email , passwd;
     Button createAc;
 
     private void init(){
-        createAc = parent.findViewById(R.id.create_acc);
+        createAc = parent.findViewById(R.id.create_ac_btn);
+        name  = parent.findViewById(R.id.name_register);
+        surname = parent.findViewById(R.id.surname_register);
+        bankAc  = parent.findViewById(R.id.bank_ac_register);
+        pan =  parent.findViewById(R.id.pan_register);
+        passwd = parent.findViewById(R.id.passwd_register);
+        email= parent.findViewById(R.id.email_register);
     }
 
     @Override
