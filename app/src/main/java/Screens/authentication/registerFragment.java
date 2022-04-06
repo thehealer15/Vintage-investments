@@ -7,22 +7,36 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.Toast;
 
 import com.example.app.MainActivity;
 import com.example.app.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthException;
 
 public class registerFragment extends Fragment {
     View parent;
     Context mContext;
     EditText name , surname , bankAc , pan , email , passwd;
     Button createAc;
+//    private ProgressBar progressbar;//
+    private FirebaseAuth mAuth;
 
     private void init(){
         createAc = parent.findViewById(R.id.create_ac_btn);
@@ -52,16 +66,48 @@ public class registerFragment extends Fragment {
         // Inflate the layout for this fragment
         parent =  inflater.inflate(R.layout.fragment_register, container, false);
         init();
+        mAuth = FirebaseAuth.getInstance();
         createAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.welcomed = false;
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                i.putExtra("path" , "MainActivity");
-                startActivity(i);
+                registerNewUser();
             }
         });
 
         return parent;
+    }
+    private void registerNewUser()
+    {
+        String email_str = email.getText().toString();
+        String password = passwd.getText().toString();
+        if(password.length() == 0|| email_str.length() == 0) {
+            Toast.makeText(getActivity(), "Gaval", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // create new user or register new user
+        mAuth.createUserWithEmailAndPassword(email_str, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(),
+                                    "Registration successful!",
+                                    Toast.LENGTH_LONG)
+                                    .show();
+//                              progressbar.setVisibility(View.GONE);
+//                              try{
+//                                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                                startActivity(intent);
+//                            }catch (Exception e){
+//                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+                        }
+                        else {
+                            // Registration failed
+                            Toast.makeText(getActivity(),  "Registration failed!!  Please try again later", Toast.LENGTH_LONG).show();
+//                            progressbar.setVisibility(View.GONE);
+                        }
+                    }
+                });
     }
 }

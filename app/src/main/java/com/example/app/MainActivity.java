@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     private FrameLayout fragment_container;
     private BottomNavigationView bottomNav;
     private ActionBar actionBar;
-    public static boolean welcomed = true;
+    public static boolean signedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +41,11 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         bottomNav = findViewById(R.id.bottomNav);
         loadFragment(new Screens.feed_fragment());
         bottomNav.setOnNavigationItemSelectedListener(this);
-        if(welcomed){
+
+        if(!signedIn){
+            Toast.makeText(getApplicationContext(), "Not sign in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-            welcomed = false;
+            finish();
         }
 
         bottomNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
@@ -54,7 +59,6 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
             snackbar.show();
             loadFragment(new feed_fragment());
         }
-
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
