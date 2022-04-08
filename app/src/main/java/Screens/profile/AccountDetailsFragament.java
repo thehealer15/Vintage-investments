@@ -29,6 +29,7 @@ public class AccountDetailsFragament extends Fragment {
         mobile_no = parentHolder.findViewById(R.id.user_mobile_no);
         nominee = parentHolder.findViewById(R.id.user_Nominee);
         editBtn = parentHolder.findViewById(R.id.edit_info);
+        save_infoBtn = parentHolder.findViewById(R.id.save_info);
     }
 
     public AccountDetailsFragament() {
@@ -51,6 +52,12 @@ public class AccountDetailsFragament extends Fragment {
             }
         });
 
+        save_infoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return parentHolder;
     }
 

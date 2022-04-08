@@ -76,13 +76,15 @@
             android:layout_margin="10sp"
             android:hint="enter otp"
             android:padding="10sp"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/verify_otp_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Verify Otp" />
+            android:text="Verify Otp"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

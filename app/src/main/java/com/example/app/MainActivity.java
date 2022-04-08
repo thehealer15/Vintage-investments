@@ -41,8 +41,9 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         bottomNav = findViewById(R.id.bottomNav);
         loadFragment(new Screens.feed_fragment());
         bottomNav.setOnNavigationItemSelectedListener(this);
-
-        if(!signedIn){
+        FirebaseAuth m = FirebaseAuth.getInstance();
+        FirebaseUser u = m.getCurrentUser();
+        if(u == null || !signedIn){
             Toast.makeText(getApplicationContext(), "Not sign in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
             finish();

@@ -58,6 +58,8 @@ public class WelcomeActivity extends AppCompatActivity {
                     // displaying a toast message.
                     Toast.makeText(getApplicationContext(), "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
                 } else {
+                    otp_et.setVisibility(View.VISIBLE);
+                    submit_otp_btn.setVisibility(View.VISIBLE);
                     // if the text field is not empty we are calling our
                     // send OTP method for getting OTP from Firebase.
                     String phone = "+91" + mobile_no_et.getText().toString();
