@@ -90,13 +90,17 @@
             android:id="@+id/all_orders_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="All orders" />
+            android:elevation="12sp"
+            android:text="All orders"
+            app:rippleColor="@color/ripple" />
 
         <Button
             android:id="@+id/help_n_support_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Help And Support" />
+            android:elevation="12sp"
+            android:text="Help And Support"
+            app:rippleColor="@color/ripple" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

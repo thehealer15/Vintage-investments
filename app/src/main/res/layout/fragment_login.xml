@@ -70,7 +70,8 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="sign in"
-                android:textColor="#777" />
+                android:textColor="#777"
+                app:rippleColor="@color/ripple" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,6 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:rippleColor="@color/ripple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

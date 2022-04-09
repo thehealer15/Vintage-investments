@@ -18,9 +18,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -54,7 +57,7 @@ public class AccountDetailsFragament extends Fragment {
         parentHolder =  inflater.inflate(R.layout.account_details_fragament, container, false);
         init();
         controlEditText(false);
-
+        loadData();
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +92,6 @@ public class AccountDetailsFragament extends Fragment {
     }
     private void putEditTextName(TextInputLayout t , String s){
         t.getEditText().setText(s);
-        return ;
     }
     private  void controlEditText(boolean val){
         name.getEditText().setFocusableInTouchMode(val);
@@ -99,29 +101,36 @@ public class AccountDetailsFragament extends Fragment {
         mobile_no.getEditText().setFocusableInTouchMode(val);
         nominee.getEditText().setFocusableInTouchMode(val);
     }
-    private Map<String, Object>[] loadProfile(){
-        final Map<String, Object>[] map = new Map[]{new HashMap<>()};
-        FirebaseDatabase.getInstance().getReference().child("info").child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+    private void showSnackBar(String text){
+        Snackbar.make(getActivity().findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+                .show();
+    }
+    private void loadData(){
+        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        Query query = mFirebaseDatabaseReference.child("info").child(FirebaseAuth.getInstance().getUid()).orderByChild("title").equalTo("#Yahoo");
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
-                    if(dataSnapshot.exists()){
-                        map[0] = dataSnapshot.getValue(Map.class);
-                    }
+                    Map map ;
+                    map = snapshot.getValue(Map.class);
+                    if(map == null) return;
+                    putEditTextName(name, map.get("name").toString());
+                    putEditTextName(email, map.get("email").toString());
+                    putEditTextName(bankAccountNo, map.get("bankAccountNo").toString());
+                    putEditTextName(pan, map.get("pan").toString());
+                    putEditTextName(mobile_no, map.get("mobile_no").toString());
+                    putEditTextName(nominee, map.get("nominee").toString());
                 }catch (Exception e){
-                    showSnackBar("Something went wrong");
+                    Toast.makeText(getActivity(), "can't load data", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Profile do not exist", Toast.LENGTH_SHORT).show();
+
             }
         });
-        return map;
-    }
-    private void showSnackBar(String text){
-        Snackbar.make(getActivity().findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
-                .show();
     }
 }

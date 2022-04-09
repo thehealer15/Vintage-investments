@@ -53,7 +53,8 @@
             android:id="@+id/btn1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Buy" />
+            android:text="Buy"
+            app:rippleColor="@color/ripple" />
 
         <View
             android:layout_width="match_parent"
@@ -94,7 +95,8 @@
             android:id="@+id/btn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Buy" />
+            android:text="Buy"
+            app:rippleColor="@color/ripple" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

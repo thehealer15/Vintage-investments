@@ -55,7 +55,7 @@ public class fragment_dashboard extends Fragment {
             public void onClick(View view) {
                 new AlertDialog.Builder(context)
                         .setTitle("Request Put")
-                        .setMessage("You will recieve call from executive")
+                        .setMessage("You will receive call from executive")
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Continue with delete operation
@@ -73,20 +73,12 @@ public class fragment_dashboard extends Fragment {
             user_portfolio.child("short_term").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    // this method is call to get the realtime
-                    // updates in the data.
-                    // this method is called when the data is
-                    // changed in our Firebase console.
-                    // below line is for getting the data from
-                    // snapshot of our database.
-                    Integer value = snapshot.getValue(Integer.class);
+                   Integer value = snapshot.getValue(Integer.class);
                     short_term_portfolio_value.setText("\t\t" + value);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // calling on cancelled method when we receive
-                    // any error or we are not able to get the data.
                     Toast.makeText(getActivity(), "Failed to get data.", Toast.LENGTH_LONG).show();
                 }
             });
@@ -94,20 +86,12 @@ public class fragment_dashboard extends Fragment {
             user_portfolio.child("long_term").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    // this method is call to get the realtime
-                    // updates in the data.
-                    // this method is called when the data is
-                    // changed in our Firebase console.
-                    // below line is for getting the data from
-                    // snapshot of our database.
                     Integer value = snapshot.getValue(Integer.class);
                     long_term_portfolio_value.setText("\t\t" + value);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // calling on cancelled method when we receive
-                    // any error or we are not able to get the data.
                     Toast.makeText(getActivity(), "Failed to get data.", Toast.LENGTH_LONG).show();
                 }
             });
