@@ -1,10 +1,12 @@
 package Screens;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -57,6 +59,21 @@ public class fragment_profile extends Fragment {
             @Override
             public void onClick(View view) {
                 loadFragment(new AccountDetailsFragament());
+            }
+        });
+        helpNSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Request Put")
+                        .setMessage("You will recieve call from executive")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_menu_call)
+                        .show();
             }
         });
 

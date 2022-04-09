@@ -1,8 +1,10 @@
 package Screens;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.example.app.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -67,9 +71,6 @@ public class feed_fragment extends Fragment {
     EditText short_term_qnty, long_term_qnty;
     TextView short_term_amount , long_term_amount;
 
-
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference profile_completed_ref , portfolio , info;
     private void init(){
         short_term = parentHolder.findViewById(R.id.btn1);
         long_term = parentHolder.findViewById(R.id.btn2);
@@ -80,13 +81,6 @@ public class feed_fragment extends Fragment {
         long_term_amount = parentHolder.findViewById(R.id.amnt_long_term);
         short_term_amount = parentHolder.findViewById(R.id.amnt_short_term);
 
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-//
-//        profile_completed_ref = firebaseDatabase.getReference("Profile");
-//        portfolio = firebaseDatabase.getReference("portfolio");
-//        info = firebaseDatabase.getReference("info");
     }
 
     @Override
@@ -103,7 +97,10 @@ public class feed_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         parentHolder =  inflater.inflate(R.layout.feed_fragment, container, false);
+
         init();
+
+
 
         short_term.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,14 +120,37 @@ public class feed_fragment extends Fragment {
  }
 
     private void updateQuantity(Integer qty , boolean isLongTerm){
-        // update to firebase here
-        Toast.makeText(getActivity(), "Do payment", Toast.LENGTH_SHORT).show();
-//        Intent i = new Intent(getActivity() , PaymentActivity.class);
-//        i.putExtra("amount" , qty);
-////        startActivity(i);
+        try{
+            DatabaseReference usr_portfolio = FirebaseDatabase.getInstance().getReference().child("portfolio").child(FirebaseAuth.getInstance().getUid());
+            if (isLongTerm)
+                usr_portfolio.child("long_term").setValue(qty);
+            else
+                usr_portfolio.child("short_term").setValue(qty);
 
+            short_term_qnty.setText("");
+            long_term_qnty.setText("");
+            short_term_amount.setText("");
+            long_term_amount.setText("");
 
+            new AlertDialog.Builder(context)
+                    .setTitle("Investment Done!")
+                    .setMessage("Congratulations you have invested in most recession proof asset class")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.star_on)
+                    .show();
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
     private void buyShortTerm(){
         if(short_term_qnty.getText().toString().length() == 0){
             showSnackBar("Enter Quantity");

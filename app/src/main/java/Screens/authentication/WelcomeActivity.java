@@ -63,6 +63,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     // if the text field is not empty we are calling our
                     // send OTP method for getting OTP from Firebase.
                     String phone = "+91" + mobile_no_et.getText().toString();
+                    Toast.makeText(getApplicationContext(), "Verify if you are human", Toast.LENGTH_SHORT).show();
                     sendVerificationCode(phone);
                 }
             }

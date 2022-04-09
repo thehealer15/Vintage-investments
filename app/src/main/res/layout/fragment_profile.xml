@@ -5,12 +5,24 @@
     android:layout_height="match_parent"
     android:padding="10sp"
     tools:context="Screens.fragment_profile">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="DuplicateIds" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/view3"
+        android:layout_marginTop="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/modigavali"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +52,8 @@
                 android:layout_height="93dp"
                 android:layout_margin="8sp"
                 android:padding="5sp"
+                android:text="click here to\n edit profile"
+
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +65,7 @@
     </androidx.cardview.widget.CardView>
 
     <View
-        android:id="@+id/view3"
+        android:id="@+id/modigavali"
         android:layout_width="wrap_content"
         android:layout_height="1sp"
         android:layout_margin="2sp"
@@ -70,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3">
+        app:layout_constraintTop_toBottomOf="@+id/modigavali">
 
         <Button
             android:id="@+id/all_orders_btn"
