@@ -101,6 +101,12 @@
             android:elevation="12sp"
             android:text="Help And Support"
             app:rippleColor="@color/ripple" />
+
+        <Button
+            android:id="@+id/log_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log Out" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
